@@ -1,0 +1,34 @@
+version: "3.0"
+services:
+  doon-ecommerce-backend:
+    container_name: doon-ecommerce-backend
+    restart: always
+    build: ./
+    image: doon-ecommerce-backend
+    ports:
+      - "7436:7436"
+    volumes:
+      - ./public:/app/public
+    depends_on:
+      - doon-ecommerce-db
+    environment:
+      - PORT=7436
+      - JWT_SECRET=mysupersecretkey
+      - SMTP_MAIL=doonsilk7@gmail.com 
+      - SMTP_PASSWORD=bdcivnpdpnqjxwsz
+      - MYSQL_USER=doon
+      - MYSQL_PASSWORD=doonAli321
+      - MYSQL_DATABASE=doon-ecommerce
+      - MYSQL_HOST=doon-ecommerce-db  
+  doon-ecommerce-db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootDoonAli321
+      - MYSQL_USER=doon
+      - MYSQL_PASSWORD=doonAli321
+      - MYSQL_DATABASE=doon-ecommerce
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3408:3306"
